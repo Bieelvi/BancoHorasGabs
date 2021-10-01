@@ -4,15 +4,9 @@ namespace App\Entity\Usuario;
 
 class Usuario 
 {
-    private string $id;
     private string $nomeCompleto;
     private string $email;
     private string $password;
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function getNomeCompleto(): string
     {

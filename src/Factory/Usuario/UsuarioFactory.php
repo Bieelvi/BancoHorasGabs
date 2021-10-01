@@ -8,7 +8,7 @@ include_once __DIR__ . '/../../../vendor/autoload.php';
 
 class UsuarioFactory 
 {
-    public function novaEntidade($entitdade)
+    public function novaEntidade($entitdade): Usuario
     {
         return (new Usuario())
             ->setNomeCompleto($entitdade['nome_completo'])

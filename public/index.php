@@ -2,6 +2,8 @@
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
+session_start();
+
 $caminho = $_SERVER['PATH_INFO'];
 $rotas = require __DIR__ . '/../config/rotas.php';
 
