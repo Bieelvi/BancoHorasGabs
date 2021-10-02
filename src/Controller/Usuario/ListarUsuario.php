@@ -8,7 +8,7 @@ use App\Repository\Usuario\UsuarioRepository;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class ListaUsuario implements Controller
+class ListarUsuario implements Controller
 {
     use RenderHtml;
 

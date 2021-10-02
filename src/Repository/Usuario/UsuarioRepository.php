@@ -17,17 +17,19 @@ class UsuarioRepository
         $password = $usuario->getPassword();
         $nomeCompleto = $usuario->getNomeCompleto();
 
-        if($this->buscaUmUsuario('email', $email) != false){
-            return null;
+        // caso for FALSE, continuara o codigo
+        if($this->buscaUmUsuario('email', $email)){
+            return false;
         }
 
         $sql = $conexao->prepare('INSERT INTO usuario (email, password, nome_completo) VALUES (?, ?, ?);');
         $sql->bindParam(1, $email);
         $sql->bindParam(2, $password);
         $sql->bindParam(3, $nomeCompleto);
-        $sql->execute();
 
-        if($sql->rowCount()) {
+        if($sql->execute()) {
+            $_SESSION['logado'] = true;
+            $_SESSION['usuario'] = $this->login($email, $password);
             return true;
         }
 
@@ -44,7 +46,8 @@ class UsuarioRepository
         return $sql->fetchAll();
     }
 
-    public function buscaUmUsuario($paramBusca, $param)
+    // retorne FALSE caso a pesquisa retorno nada
+    public function buscaUmUsuario(string $paramBusca, string $param)
     {
         $conexao = (new DataBase())->conexao();
 
@@ -53,6 +56,26 @@ class UsuarioRepository
 
         $sql->execute();
 
-        return $sql->fetchAll();
+        if($sql->rowCount()){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function login(string $email, string $password)
+    {
+        $conexao = (new DataBase())->conexao();
+
+        $sql = $conexao->prepare("SELECT * FROM usuario WHERE email = ? AND password = ?;");
+        $sql->bindParam(1, $email);
+        $sql->bindParam(2, $password);
+        $sql->execute();
+
+        if($sql->rowCount()){
+            return $sql->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        return false;
     }
 }

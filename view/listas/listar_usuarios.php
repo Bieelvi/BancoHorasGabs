@@ -10,5 +10,4 @@
     </ul>
 </div>
 
-<body>
-</html>
+<?php include __DIR__ . '/../end.php'; ?>

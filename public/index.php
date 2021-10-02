@@ -4,15 +4,23 @@ include_once __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-$caminho = $_SERVER['PATH_INFO'];
+$path = $_SERVER['PATH_INFO'];
 $rotas = require __DIR__ . '/../config/rotas.php';
 
-if (!array_key_exists($caminho, $rotas)) {
+if(!array_key_exists($path, $rotas)){
 	http_response_code(404);
 	exit();
 }
 
-$classeControladora = $rotas[$caminho];
+$rotasLiberadas = [stripos($path, 'login'), stripos($path, 'novo')];
+
+if(!isset($_SESSION['logado']) && $rotasLiberadas[0] === false && $rotasLiberadas[1] === false){
+	header('Location: /login');
+	exit;
+}
+
+
+$classeControladora = $rotas[$path];
 
 /** @var Controller $controladora */
 $controladora = new $classeControladora();

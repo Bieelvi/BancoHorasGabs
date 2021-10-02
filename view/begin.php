@@ -12,11 +12,14 @@
     <div class="container-fluid">
         <a class="navbar-brand">Usuário</a>
         <div class="d-flex">
-            <a href="/usuario">
+            <a href="/novo">
                 <button class="btn btn-dark" type="submit">Cadastrar</button>
             </a>
-            <a href="#" class="ms-2">
+            <a href="/login" class="ms-2">
                 <button class="btn btn-dark" type="submit">Entrar</button>
+            </a>
+            <a href="/logout" class="ms-2">
+                <button class="btn btn-dark" type="submit">Sair</button>
             </a>
         </div>
   </div>

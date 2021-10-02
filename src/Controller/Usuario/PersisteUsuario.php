@@ -13,6 +13,7 @@ include_once __DIR__ . '/../../../vendor/autoload.php';
 class PersisteUsuario implements Controller
 {
     use FlashMessage;
+    use RenderHtml;
 
     // refatorar isso daqui ta horrivel
     public function processaRequisicao()
@@ -31,32 +32,34 @@ class PersisteUsuario implements Controller
 
         if(!$this->verificaCampos($infUsuuario)){
             $this->defineMsg('danger', 'Campos incorretos, preencha-os corretamente!');
-            header('Location: /usuario');
+            header('Location: /novo');
             return;
         }
 
         if($password !== $confPassword){
             $this->defineMsg('danger', 'Senhas incompativeis');
-            header('Location: /usuario');
+            header('Location: /novo');
             return;
         }
 
         $usuario = (new UsuarioFactory())->novaEntidade($infUsuuario);
+        $response = (new UsuarioRepository())->insereUsuario($usuario);
 
-        if(!(new UsuarioRepository())->insereUsuario($usuario)){
-            $this->defineMsg('danger', 'Algo inesperado aconteceu. Entre em contato com o suporte!');
-            header('Location: /usuario');
-            return;
-        }
-
-        if((new UsuarioRepository())->insereUsuario($usuario) === null){
+        if($response === false){
             $this->defineMsg('danger', 'Já existe uma conta associado a este email!');
-            header('Location: /usuario');
+            header('Location: /novo');
             return;
         }
 
-        $this->defineMsg('success', 'Usuário Criado!');
-        header('Location: /listar-usuario');
+        if($response === true){
+            $this->defineMsg('success', 'Usuário Criado!');
+            header('Location: /perfil-usuario');
+            return;
+        }
+
+        $this->defineMsg('danger', 'Algo inesperado aconteceu. Contate o suporte!');
+        header('Location: /novo');
+        return;
     }
 
     // retorna FALSE caso os campos estejam corretos

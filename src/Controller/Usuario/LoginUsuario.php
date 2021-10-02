@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Controller\Usuario;
 
@@ -7,15 +7,12 @@ use App\Helper\RenderHtml;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class UsuarioController implements Controller
+class LoginUsuario implements Controller
 {
     use RenderHtml;
 
     public function processaRequisicao()
     {
-        echo $this->renderizaHtml(
-            'formularios/cadastro_usuario.php', 
-            ['titulo' => 'Cadastrar Usuário']
-        );
+        echo $this->renderizaHtml('formularios/login_usuario.php', []);
     }
 }
