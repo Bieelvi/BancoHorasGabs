@@ -46,7 +46,6 @@ class UsuarioRepository
         return $sql->fetchAll();
     }
 
-    // retorne FALSE caso a pesquisa retorno nada
     public function buscaUmUsuario(string $paramBusca, string $param)
     {
         $conexao = (new DataBase())->conexao();
@@ -57,7 +56,7 @@ class UsuarioRepository
         $sql->execute();
 
         if($sql->rowCount()){
-            return true;
+            return $sql->fetch(\PDO::FETCH_ASSOC);
         }
 
         return false;
@@ -77,5 +76,21 @@ class UsuarioRepository
         }
 
         return false;
+    }
+
+    public function updateUsuario(string $nomeCompleto, string $email, string $password, int $id)
+    {
+        $conexao = (new DataBase())->conexao();
+
+        $sql = $conexao->prepare("UPDATE usuario SET nome_completo = ?, email = ?, password = ? WHERE id = ?;");
+        $sql->bindParam(1, $nomeCompleto);
+        $sql->bindParam(2, $email);
+        $sql->bindParam(3, $password);
+        $sql->bindParam(4, $id);
+        $sql->execute();
+
+        if($sql->rowCount()){
+
+        }
     }
 }

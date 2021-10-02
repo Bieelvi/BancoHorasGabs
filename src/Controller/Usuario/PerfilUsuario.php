@@ -13,6 +13,12 @@ class PerfilUsuario implements Controller
 
     public function processaRequisicao()
     {
-        echo $this->renderizaHtml('listas/perfil_usuario.php', []);
+        echo $this->renderizaHtml(
+            'listas/perfil_usuario.php', 
+            [
+                'titulo' => 'Perfil - Banco Horas Gabs',
+                'tituloLogo' => 'Perfil'
+            ]
+        );
     }
 }

@@ -29,6 +29,6 @@ class LoginController implements Controller
             $_SESSION['usuario'] = $login;
         }
 
-        echo $this->renderizaHtml('teste.php', ['usuario' => $login]);
+        header('Location: /perfil-usuario');
     }
 }

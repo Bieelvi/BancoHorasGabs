@@ -19,7 +19,6 @@ if(!isset($_SESSION['logado']) && $rotasLiberadas[0] === false && $rotasLiberada
 	exit;
 }
 
-
 $classeControladora = $rotas[$path];
 
 /** @var Controller $controladora */

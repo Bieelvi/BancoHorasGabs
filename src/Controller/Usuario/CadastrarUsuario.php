@@ -15,7 +15,7 @@ class CadastrarUsuario implements Controller
     {
         echo $this->renderizaHtml(
             'formularios/cadastro_usuario.php', 
-            ['titulo' => 'Cadastrar Usuário']
+            ['titulo' => 'Cadastrar Usuário',]
         );
     }
 }

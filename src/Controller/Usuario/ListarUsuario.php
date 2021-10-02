@@ -19,7 +19,8 @@ class ListarUsuario implements Controller
         echo $this->renderizaHtml(
             'listas/listar_usuarios.php', 
             [
-                'titulo' => 'Lista de Usuarios', 
+                'titulo' => 'Usuarios - Banco Horas Gabs',
+                'tituloLogo' => 'Lista de Usuários',
                 'usuarios' => $usuarios,
             ]
         );
