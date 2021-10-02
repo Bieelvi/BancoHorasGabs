@@ -10,4 +10,7 @@ return [
     '/login'            => App\Controller\Usuario\LoginUsuario::class,
     '/login-controller' => App\Controller\Usuario\LoginController::class,
     '/logout'           => App\Controller\Usuario\Logout::class,
+
+    '/banco-horas'      => App\Controller\BancoHoras\BancoHoras::class,
+    '/nova-banco-horas' => App\Controller\BancoHoras\PersisteBancoHoras::class,
 ];

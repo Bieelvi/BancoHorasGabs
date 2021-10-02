@@ -22,27 +22,45 @@ class UpdateUsuario implements Controller
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $confPassword = filter_input(INPUT_POST, 'confPassword', FILTER_SANITIZE_STRING);
 
-        $infUsuuario = [
-            'id' => $id,
-            'nome_completo' => $nomeCompleto,
-            'email' => $email,
-            'password' => $password,
-            'confPassword' => $confPassword,
-        ];
-
         if(!empty($password) && ($password !== $confPassword)){
             $this->defineMsg('danger', 'Senhas incompativeis');
             header('Location: /perfil-usuario');
             return;
         }
 
-        $usuarioExistente = (new UsuarioRepository())->buscaUmUsuario('id', $id);
+        $usuarioRepository = new UsuarioRepository();
+
+        $usuarioExistente = $usuarioRepository->buscaUmUsuario('id', $id);
 
         $novoNomeCompleto = $nomeCompleto !== $usuarioExistente['nome_completo'] ? $nomeCompleto : $usuarioExistente['nome_completo'];
         $novoEmail = $email !== $usuarioExistente['email'] ? $email : $usuarioExistente['email'];
 
         $novoPassword = empty($password) ? $usuarioExistente['password'] : $password; 
+
+        $infUsuuario = [
+            'nome_completo' => $novoNomeCompleto,
+            'email' => $novoEmail,
+            'password' => $novoPassword
+        ];
+
+        $usuarioNovo = (new UsuarioFactory())->novaEntidade($infUsuuario);
         
-        echo ('Nome: ' . $novoNomeCompleto . ' Email: ' . $novoEmail . ' Password: ' . $novoPassword);
+        $response = $usuarioRepository->updateUsuario($usuarioNovo, $id);
+
+        if($response === false){
+            $this->defineMsg('danger', 'Já existe uma conta associado a este email!');
+            header('Location: /perfil-usuario');
+            return;
+        }
+
+        if($response === true){
+            $this->defineMsg('success', 'Dados atualizados');
+            header('Location: /perfil-usuario');
+            return;
+        }
+
+        $this->defineMsg('danger', 'Algo inesperado aconteceu. Contate o suporte!');
+        header('Location: /perfil-usuario');
+        return;
     }
 }

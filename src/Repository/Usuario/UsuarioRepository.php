@@ -78,19 +78,35 @@ class UsuarioRepository
         return false;
     }
 
-    public function updateUsuario(string $nomeCompleto, string $email, string $password, int $id)
+    public function updateUsuario(Usuario $usuario, int $id)
     {
         $conexao = (new DataBase())->conexao();
+
+        $email = $usuario->getEmail();
+        $password = $usuario->getPassword();
+        $nomeCompleto = $usuario->getNomeCompleto();
+
+        $usuarioExistente = $this->buscaUmUsuario('email', $email);
+
+        if($usuarioExistente['id'] != $id){
+            return false;
+        }
 
         $sql = $conexao->prepare("UPDATE usuario SET nome_completo = ?, email = ?, password = ? WHERE id = ?;");
         $sql->bindParam(1, $nomeCompleto);
         $sql->bindParam(2, $email);
         $sql->bindParam(3, $password);
         $sql->bindParam(4, $id);
-        $sql->execute();
+
+        if($sql->execute()) {
+            $_SESSION['usuario'] = $this->login($email, $password);
+            return true;
+        }
 
         if($sql->rowCount()){
-
+            return true;
         }
+
+        return false;
     }
 }
