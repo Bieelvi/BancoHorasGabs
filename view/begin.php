@@ -13,22 +13,21 @@
     <div class="container-fluid">
         <a class="navbar-brand"><?= $tituloLogo ?></a>
         <div class="d-flex">
-            <?php if(isset($_SESSION['logado'])): ?>
-                <a href="/banco-horas" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Banco de Horas</button>
-                </a>
-            <?php endif; ?>
             <?php if(!isset($_SESSION['logado'])): ?>
             <a href="/novo">
                 <button class="btn btn-dark" type="submit">Cadastrar</button>
             </a>
-            <?php endif; ?>
-            <?php if(!isset($_SESSION['logado'])): ?>
             <a href="/login" class="ms-2">
                 <button class="btn btn-dark" type="submit">Entrar</button>
             </a>
             <?php endif; ?>
             <?php if(isset($_SESSION['logado'])): ?>
+                <a href="/banco-horas" class="ms-2">
+                    <button class="btn btn-dark" type="submit">Banco de Horas</button>
+                </a>
+                <a href="/perfil-usuario" class="ms-2">
+                    <button class="btn btn-dark" type="submit">Perfil</button>
+                </a>
                 <a href="/logout" class="ms-2">
                     <button class="btn btn-dark" type="submit">Sair</button>
                 </a>

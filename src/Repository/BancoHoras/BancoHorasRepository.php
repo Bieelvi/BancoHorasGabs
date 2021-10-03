@@ -75,4 +75,26 @@ class BancoHorasRepository
             return $sql->fetchAll(\PDO::FETCH_ASSOC);
         }
     }
+
+    public function buscaPersonalizadaPerfilBancoHoras(int $id, array $responseDataAno)
+    {     
+        $conexao = (new DataBase())->conexao();
+
+        foreach ($responseDataAno as $dataAno) {
+            $sql = $conexao->prepare("SELECT * FROM banco_horas WHERE usuario_id = '$id' AND data_ano = ".$dataAno['data_ano'].";");
+            $sql->execute();
+            $responseDataMes[] = $sql->fetchAll(\PDO::FETCH_ASSOC);       
+        }
+
+        return $responseDataMes;
+    }
+
+    public function buscaDataAnoDistinct(int $id)
+    {
+        $conexao = (new DataBase())->conexao();
+
+        $sql = $conexao->prepare("SELECT DISTINCT data_ano FROM banco_horas WHERE usuario_id = '$id' ORDER BY data_ano ASC;");
+        $sql->execute();
+        return $sql->fetchAll(\PDO::FETCH_ASSOC); 
+    }
 }

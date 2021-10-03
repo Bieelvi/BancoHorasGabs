@@ -3,71 +3,46 @@
 <div class="container mt-3">
     <form action="/nova-banco-horas" method="post">
         <div class="row">
-            <div class="col">
-                <label for="nomeEmpresa" class="form-label">Empresa</label>
+            <div class="col-8">
+                <label for="nomeEmpresa" class="col col-form-label">Empresa</label>
                 <select id="nomeEmpresa" name="nomeEmpresa" class="form-select">
                     <option selected>Escolher</option>
                     <option>Hospital Unimed Limeira</option>
                 </select>
             </div>
-            <div class="col">
-                <label for="horasDiarias" class="form-label">Horas Diárias</label>
-                <select id="horasDiarias" name="horasDiarias" class="form-select">
-                    <option>06:00</option>
-                    <option selected>08:00</option>
-                    <option>10:00</option>
-                    <option>12:00</option>
-                </select>
+            <div class="col-4">
+                <label for="horasDiarias" class="col col-form-label">Horas Diárias</label>
+                <input type="time" id="horasDiarias" name="horasDiarias" class="form-control" value="08:00">
             </div>
         </div>
         <div class="row mt-3">
             <div class="col">
-                <label for="data" class="form-label">Data</label>
+                <label for="data" class="col col-form-label">Data</label>
                 <input type="date" class="form-control" name="data" id="data">
             </div>
             <div class="col">
-                <label for="horaEntrada" class="form-label">Horário de Entrada</label>
-                <select id="horaEntrada" name="horaEntrada" class="form-select">
-                    <option selected>Escolher</option>
-                    <option>08:00</option>
-                    <option>07:30</option>
-                </select>
+                <label for="horaEntrada" class="col col-form-label">Horário de Entrada</label>
+                <input type="time" id="horaEntrada" name="horaEntrada" class="form-control"></input>
             </div>
             <div class="col">
-                <label for="horaEntradaAlmoco" class="form-label">Horário do Almoço</label>
-                <select id="horaEntradaAlmoco" name="horaEntradaAlmoco" class="form-select">
-                    <option selected>Escolher</option>
-                    <option>11:00</option>
-                    <option>11:30</option>
-                    <option>12:00</option>
-                    <option>12:30</option>
-                </select>
+                <label for="horaEntradaAlmoco" class="col col-form-label">Horário do Almoço</label>
+                <input type="time" id="horaEntradaAlmoco" name="horaEntradaAlmoco" class="form-control"></input>
             </div>
             <div class="col">
-                <label for="horaRetorno" class="form-label">Horário de Retorno</label>
-                <select id="horaRetorno" name="horaRetorno" class="form-select">
-                    <option selected>Escolher</option>
-                    <option>12:30</option>
-                    <option>13:00</option>
-                    <option>13:30</option>
-                    <option>14:00</option>
-                </select>
+                <label for="horaRetorno" class="col col-form-label">Horário de Retorno</label>
+                <input type="time" id="horaRetorno" name="horaRetorno" class="form-control"></input>
             </div>
             <div class="col">
-                <label for="horaSaida" class="form-label">Horário de Saída</label>
-                <select id="horaSaida" name="horaSaida" class="form-select">
-                    <option selected>Escolher</option>
-                    <option>17:30</option>
-                    <option>18:00</option>
-                </select>
+                <label for="horaSaida" class="col col-form-label">Horário de Saída</label>
+                <input type="time" id="horaSaida" name="horaSaida" class="form-control"></input>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col">
-                <label for="observacao" class="form-label">Observações</label>
+                <label for="observacao" class="col col-form-label">Observações</label>
                 <div class="form-floating">
                     <textarea class="form-control" id="observacao" name="observacao"></textarea>
-                    <label for="observacao" class="form-label">Suas observações</label>
+                    <label for="observacao" class="col col-form-label">Suas observações</label>
                 </div>
             </div>
         </div>

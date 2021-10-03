@@ -14,4 +14,6 @@ return [
     '/banco-horas'          => App\Controller\BancoHoras\BancoHoras::class,
     '/nova-banco-horas'     => App\Controller\BancoHoras\PersisteBancoHoras::class,
     '/cadatrar-banco-horas' => App\Controller\BancoHoras\CadastrarBancoHoras::class,
+
+    '/teste'                => App\Controller\Teste::class,
 ];

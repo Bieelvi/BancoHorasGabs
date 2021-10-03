@@ -14,24 +14,19 @@ class BancoHoras implements Controller
 
     public function processaRequisicao()
     {
-        $bancoHoras = (new BancoHorasRepository())->buscaBancoHorasUsuario($_SESSION['usuario']['id']);
+        $bancoHorasRepository = new BancoHorasRepository();
+
+        $responseDataAno = $bancoHorasRepository->buscaDataAnoDistinct($_SESSION['usuario']['id']); 
+        $responseDataMes = $bancoHorasRepository->buscaPersonalizadaPerfilBancoHoras($_SESSION['usuario']['id'], $responseDataAno);
 
         echo $this->renderizaHtml(
             'listas/listar_banco_horas.php', 
             [
                 'titulo' => 'Banco Horas Gabs',
                 'tituloLogo' => 'Horas',
-                'bancoHoras' => $bancoHoras,
+                'tituloArcodian' => $responseDataAno,
+                'bancoHoras' => $responseDataMes,
             ]
         );
-
-        /*echo $this->renderizaHtml(
-            'teste.php', 
-            [
-                'titulo' => 'Banco Horas Gabs',
-                'tituloLogo' => 'Horas',
-                'usuario' => $bancoHoras
-            ]
-        );*/
     }
 }

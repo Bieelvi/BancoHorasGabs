@@ -19,11 +19,9 @@ class PersisteBancoHoras implements Controller
     {
         $nomeEmpresa = filter_input(INPUT_POST, 'nomeEmpresa', FILTER_SANITIZE_STRING);
         $observacao = filter_input(INPUT_POST, 'observacao', FILTER_SANITIZE_STRING);
-
         $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
-
+        
         $horasDiarias = $this->extraiConverteHora('horasDiarias');
-
         $horaEntrada = $this->extraiConverteHora('horaEntrada');
         $horaEntradaAlmoco = $this->extraiConverteHora('horaEntradaAlmoco');
         $horaRetorno = $this->extraiConverteHora('horaRetorno');
@@ -45,31 +43,48 @@ class PersisteBancoHoras implements Controller
             'horas_totais_minutos' => $horaTotaisMinutos
         ];
 
+        $this->verificaCampos($infBancoHoras);
+
         $bancoHoras = (new BancoHorasFactory())->novaEntidade($infBancoHoras);
 
-        $bancoHorasRepository = (new BancoHorasRepository())->insereBancoHoras($bancoHoras);
-
-        if($bancoHorasRepository){
+        if((new BancoHorasRepository())->insereBancoHoras($bancoHoras)){
             $this->defineMsg('success', 'Dia acrescentado com sucesso!');
             header('Location: /banco-horas');
             exit;
         }
     }
 
-    private function extraiConverteHora(string $data): ?array
+    private function verificaCampos(array $dados)
     {
-        $hora = explode(':', filter_input(INPUT_POST, $data, FILTER_SANITIZE_STRING), 2);
-
-        if($hora[0] == 'Escolher'){
-            $this->defineMsg('danger', 'Preencha todos os campos corretamente!');
+        if($dados['data'] == ''){
+            $this->defineMsg('danger', 'Selecione uma data!');
             header('Location: /cadatrar-banco-horas');
             exit;
         }
 
+        if($dados['nome_empresa'] == 'Escolher'){
+            $this->defineMsg('danger', 'Selecione uma empresa!');
+            header('Location: /cadatrar-banco-horas');
+            exit;
+        }
+    }
+
+    private function extraiConverteHora(string $dados)
+    {
+        $horaCompleto = filter_input(INPUT_POST, $dados, FILTER_SANITIZE_STRING);
+
+        if($horaCompleto == ''){
+            $this->defineMsg('danger', 'Preencha todos os campos de hora corretamente!');
+            header('Location: /cadatrar-banco-horas');
+            exit;
+        }
+
+        $hora = explode(':', $horaCompleto, 2);
+
         return [
             'hora' => intval($hora[0]),
             'minuto' => intval($hora[1]),
-            'tempo_completo' => filter_input(INPUT_POST, $data, FILTER_SANITIZE_STRING),
+            'tempo_completo' => $horaCompleto,
         ];
     }
 
