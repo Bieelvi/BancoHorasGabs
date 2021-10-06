@@ -16,6 +16,9 @@ class UpdateUsuario implements Controller
 
     public function processaRequisicao()
     {
+        $usuarioRepository = new UsuarioRepository();
+        $usuarioFactory = new UsuarioFactory();
+        
         $nomeCompleto = filter_input(INPUT_POST, 'nomeCompleto', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -26,8 +29,6 @@ class UpdateUsuario implements Controller
             header('Location: /perfil-usuario');
             return;
         }
-
-        $usuarioRepository = new UsuarioRepository();
 
         $usuarioExistente = $usuarioRepository->buscaUmUsuario($email);
 
@@ -42,7 +43,7 @@ class UpdateUsuario implements Controller
             'password' => $novoPassword
         ];
 
-        $usuarioNovo = (new UsuarioFactory())->novaEntidade($infUsuuario);
+        $usuarioNovo = $usuarioFactory->novaEntidade($infUsuuario);
         
         $response = $usuarioRepository->updateUsuario($usuarioNovo, $email);
 

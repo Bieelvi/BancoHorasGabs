@@ -16,16 +16,17 @@ class BancoHoras implements Controller
     {
         $bancoHorasRepository = new BancoHorasRepository();
 
-        $responseDataAno = $bancoHorasRepository->buscaDataAnoDistinct($_SESSION['usuario']['id']); 
-        $responseDataMes = $bancoHorasRepository->buscaPersonalizadaPerfilBancoHoras($_SESSION['usuario']['id'], $responseDataAno);
+        $id = $_SESSION['usuario']['id'];
 
+        // essa variavel sera usada para listar os ultimos 5 anos
+        $anos = $bancoHorasRepository->buscaDataAnoDistinct($id);
+        
         echo $this->renderizaHtml(
             'listas/listar_banco_horas.php', 
             [
                 'titulo' => 'Banco Horas Gabs',
-                'tituloLogo' => 'Horas',
-                'tituloArcodian' => $responseDataAno,
-                'bancoHoras' => $responseDataMes,
+                'tituloLogo' => 'Teste',
+                'anos' => $anos
             ]
         );
     }

@@ -11,9 +11,10 @@ return [
     '/login-controller'     => App\Controller\Usuario\LoginController::class,
     '/logout'               => App\Controller\Usuario\Logout::class,
 
-    '/banco-horas'          => App\Controller\BancoHoras\BancoHoras::class,
-    '/nova-banco-horas'     => App\Controller\BancoHoras\PersisteBancoHoras::class,
-    '/cadatrar-banco-horas' => App\Controller\BancoHoras\CadastrarBancoHoras::class,
+    '/banco-horas'              => App\Controller\BancoHoras\BancoHoras::class,
+    '/nova-banco-horas'         => App\Controller\BancoHoras\PersisteBancoHoras::class,
+    '/cadatrar-banco-horas'     => App\Controller\BancoHoras\CadastrarBancoHoras::class,
+    '/pesquisa-ano-selecionado' => App\Controller\BancoHoras\PesquisaAnoSelecionadoView::class,
 
     '/teste'                => App\Controller\Teste::class,
 ];

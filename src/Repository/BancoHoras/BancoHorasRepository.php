@@ -76,28 +76,48 @@ class BancoHorasRepository
         }
     }
 
-    public function buscaPersonalizadaPerfilBancoHoras(int $id, array $responseDataAno)
+    // metodo que retornar todos as horas cadastradas a partir do ano e mes
+    public function buscaHorasAnoMes(int $id, string $ano, string $mes)
     {     
         $conexao = (new DataBase())->conexao();
 
-        $responseDataMes[] = null;
+        $sql = $conexao->prepare("SELECT * FROM banco_horas WHERE usuario_id = '$id' AND data_ano = '$ano' AND data_mes = '$mes' ORDER BY data_dia DESC;");
+        $sql->execute();
 
-        foreach ($responseDataAno as $dataAno) {
-            $data_ano = $dataAno['data_ano'];
-            $sql = $conexao->prepare("SELECT * FROM banco_horas WHERE usuario_id = '$id' AND data_ano = '$data_ano' ORDER BY data_ano, data_mes, data_dia ASC;");
-            $sql->execute();
-            $responseDataMes[] = $sql->fetchAll(\PDO::FETCH_ASSOC);       
+        if($sql->rowCount() >= 1){
+            return $sql->fetchAll(\PDO::FETCH_ASSOC); 
         }
 
-        return $responseDataMes;
+        return null;
     }
 
+    // metodo que retorna todos os anos que o usuario tem cadastrado
     public function buscaDataAnoDistinct(int $id)
     {
         $conexao = (new DataBase())->conexao();
 
-        $sql = $conexao->prepare("SELECT DISTINCT data_ano FROM banco_horas WHERE usuario_id = '$id' ORDER BY data_ano, data_mes, data_dia ASC;");
+        $sql = $conexao->prepare("SELECT DISTINCT data_ano FROM banco_horas WHERE usuario_id = '$id' ORDER BY data_ano DESC LIMIT 5;");
         $sql->execute();
-        return $sql->fetchAll(\PDO::FETCH_ASSOC); 
+
+        if($sql->rowCount()){
+            return $sql->fetchAll(\PDO::FETCH_ASSOC); 
+        }
+        
+        return null;
+    }
+
+    // metodo que retorna todos os meses que o usuario tem cadastrado a partir do ano escolhido
+    public function buscaDataMesDistinct(int $id, string $ano)
+    {
+        $conexao = (new DataBase())->conexao();
+
+        $sql = $conexao->prepare("SELECT DISTINCT data_mes FROM banco_horas WHERE usuario_id = '$id' AND data_ano = '$ano' ORDER BY data_mes DESC;");
+        $sql->execute();
+
+        if($sql->rowCount()){
+            return $sql->fetchAll(\PDO::FETCH_ASSOC); 
+        }
+        
+        return null;
     }
 }
