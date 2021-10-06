@@ -80,8 +80,11 @@ class BancoHorasRepository
     {     
         $conexao = (new DataBase())->conexao();
 
+        $responseDataMes[] = null;
+
         foreach ($responseDataAno as $dataAno) {
-            $sql = $conexao->prepare("SELECT * FROM banco_horas WHERE usuario_id = '$id' AND data_ano = ".$dataAno['data_ano'].";");
+            $data_ano = $dataAno['data_ano'];
+            $sql = $conexao->prepare("SELECT * FROM banco_horas WHERE usuario_id = '$id' AND data_ano = '$data_ano' ORDER BY data_ano, data_mes, data_dia ASC;");
             $sql->execute();
             $responseDataMes[] = $sql->fetchAll(\PDO::FETCH_ASSOC);       
         }
@@ -93,7 +96,7 @@ class BancoHorasRepository
     {
         $conexao = (new DataBase())->conexao();
 
-        $sql = $conexao->prepare("SELECT DISTINCT data_ano FROM banco_horas WHERE usuario_id = '$id' ORDER BY data_ano ASC;");
+        $sql = $conexao->prepare("SELECT DISTINCT data_ano FROM banco_horas WHERE usuario_id = '$id' ORDER BY data_ano, data_mes, data_dia ASC;");
         $sql->execute();
         return $sql->fetchAll(\PDO::FETCH_ASSOC); 
     }

@@ -17,7 +17,10 @@ class PersisteUsuario implements Controller
 
     // refatorar isso daqui ta horrivel
     public function processaRequisicao()
-    {
+    {        
+        $usuarioRepository = new UsuarioRepository();
+        $usuarioFactory = new UsuarioFactory();
+
         $nomeCompleto = filter_input(INPUT_POST, 'nomeCompleto', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -42,16 +45,18 @@ class PersisteUsuario implements Controller
             return;
         }
 
-        $usuario = (new UsuarioFactory())->novaEntidade($infUsuuario);
-        $response = (new UsuarioRepository())->insereUsuario($usuario);
+        $usuarioExist = $usuarioRepository->buscaUmUsuario($email);
 
-        if($response === false){
+        if($usuarioExist == true){
             $this->defineMsg('danger', 'Já existe uma conta associado a este email!');
             header('Location: /novo');
-            return;
+            exit;
         }
 
-        if($response === true){
+        $usuario = $usuarioFactory->novaEntidade($infUsuuario);
+        $response = $usuarioRepository->insereUsuario($usuario);
+
+        if($response == true){
             $this->defineMsg('success', 'Usuário Criado!');
             header('Location: /perfil-usuario');
             return;

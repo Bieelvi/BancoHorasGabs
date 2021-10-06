@@ -17,11 +17,6 @@ class UsuarioRepository
         $password = $usuario->getPassword();
         $nomeCompleto = $usuario->getNomeCompleto();
 
-        // caso for FALSE, continuara o codigo
-        if($this->buscaUmUsuario('email', $email)){
-            return false;
-        }
-
         $sql = $conexao->prepare('INSERT INTO usuario (email, password, nome_completo) VALUES (?, ?, ?);');
         $sql->bindParam(1, $email);
         $sql->bindParam(2, $password);
@@ -46,11 +41,11 @@ class UsuarioRepository
         return $sql->fetchAll();
     }
 
-    public function buscaUmUsuario(string $paramBusca, string $param)
+    public function buscaUmUsuario(string $param)
     {
         $conexao = (new DataBase())->conexao();
 
-        $sql = $conexao->prepare("SELECT * FROM usuario WHERE " . $paramBusca . " = ?;");
+        $sql = $conexao->prepare("SELECT * FROM usuario WHERE email = ?;");
         $sql->bindParam(1, $param);
 
         $sql->execute();
@@ -66,7 +61,7 @@ class UsuarioRepository
     {
         $conexao = (new DataBase())->conexao();
 
-        $sql = $conexao->prepare("SELECT * FROM usuario WHERE email = ? AND password = ?;");
+        $sql = $conexao->prepare('SELECT * FROM usuario WHERE email = ? AND password = ?;');
         $sql->bindParam(1, $email);
         $sql->bindParam(2, $password);
         $sql->execute();
@@ -78,7 +73,7 @@ class UsuarioRepository
         return false;
     }
 
-    public function updateUsuario(Usuario $usuario, int $id)
+    public function updateUsuario(Usuario $usuario, string $meial)
     {
         $conexao = (new DataBase())->conexao();
 
@@ -86,24 +81,20 @@ class UsuarioRepository
         $password = $usuario->getPassword();
         $nomeCompleto = $usuario->getNomeCompleto();
 
-        $usuarioExistente = $this->buscaUmUsuario('email', $email);
+        $usuarioExistente = $this->buscaUmUsuario($email);
 
-        if($usuarioExistente['id'] != $id){
+        if($usuarioExistente['email'] != $email){
             return false;
         }
 
-        $sql = $conexao->prepare("UPDATE usuario SET nome_completo = ?, email = ?, password = ? WHERE id = ?;");
+        $sql = $conexao->prepare("UPDATE usuario SET nome_completo = ?, email = ?, password = ? WHERE email = ?;");
         $sql->bindParam(1, $nomeCompleto);
         $sql->bindParam(2, $email);
         $sql->bindParam(3, $password);
-        $sql->bindParam(4, $id);
+        $sql->bindParam(4, $email);
 
         if($sql->execute()) {
             $_SESSION['usuario'] = $this->login($email, $password);
-            return true;
-        }
-
-        if($sql->rowCount()){
             return true;
         }
 

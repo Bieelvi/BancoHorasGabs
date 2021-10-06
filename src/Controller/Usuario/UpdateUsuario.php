@@ -16,7 +16,6 @@ class UpdateUsuario implements Controller
 
     public function processaRequisicao()
     {
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $nomeCompleto = filter_input(INPUT_POST, 'nomeCompleto', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -30,7 +29,7 @@ class UpdateUsuario implements Controller
 
         $usuarioRepository = new UsuarioRepository();
 
-        $usuarioExistente = $usuarioRepository->buscaUmUsuario('id', $id);
+        $usuarioExistente = $usuarioRepository->buscaUmUsuario($email);
 
         $novoNomeCompleto = $nomeCompleto !== $usuarioExistente['nome_completo'] ? $nomeCompleto : $usuarioExistente['nome_completo'];
         $novoEmail = $email !== $usuarioExistente['email'] ? $email : $usuarioExistente['email'];
@@ -45,15 +44,15 @@ class UpdateUsuario implements Controller
 
         $usuarioNovo = (new UsuarioFactory())->novaEntidade($infUsuuario);
         
-        $response = $usuarioRepository->updateUsuario($usuarioNovo, $id);
+        $response = $usuarioRepository->updateUsuario($usuarioNovo, $email);
 
-        if($response === false){
+        if($response == false){
             $this->defineMsg('danger', 'Já existe uma conta associado a este email!');
             header('Location: /perfil-usuario');
             return;
         }
 
-        if($response === true){
+        if($response == true){
             $this->defineMsg('success', 'Dados atualizados');
             header('Location: /perfil-usuario');
             return;

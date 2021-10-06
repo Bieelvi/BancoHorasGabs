@@ -1,7 +1,7 @@
 <?php include_once __DIR__ . '/../begin.php'; ?>
 
 <div class="container mtt-3">
-    <form action="/update-usuario?id=<?= $_SESSION['usuario']['id'] ?>" method="post">
+    <form action="/update-usuario" method="post">
         <fieldset>
             <legend>Seus Dados</legend>
             <div class="mb-3 row">

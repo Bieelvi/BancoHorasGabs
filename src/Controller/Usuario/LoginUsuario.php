@@ -18,6 +18,7 @@ class LoginUsuario implements Controller
             [
                 'titulo' => 'Login - Banco Horas Gabs',
                 'tituloLogo' => 'Formulário de Login'
-            ]);
+            ]
+        );
     }
 }
