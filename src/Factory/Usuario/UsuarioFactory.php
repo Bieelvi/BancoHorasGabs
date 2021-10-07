@@ -16,4 +16,13 @@ class UsuarioFactory
             ->setPassword($entitdade['password'])
         ;
     }
+
+    public function novaEntidadeComSenhaCriptografada($entitdade): Usuario
+    {
+        return (new Usuario())
+            ->setNomeCompleto($entitdade['nome_completo'])
+            ->setEmail($entitdade['email'])
+            ->criptografaSenha($entitdade['password'])
+        ;
+    }
 }

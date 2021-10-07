@@ -45,7 +45,7 @@ class UpdateUsuarioController implements Controller
 
         $usuarioNovo = $usuarioFactory->novaEntidade($infUsuuario);
         
-        $response = $usuarioRepository->updateUsuario($usuarioNovo, $email);
+        $response = $usuarioRepository->updateUsuario($usuarioNovo);
 
         if($response == false){
             $this->defineMsg('danger', 'Já existe uma conta associado a este email!');

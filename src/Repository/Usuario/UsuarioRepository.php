@@ -73,7 +73,7 @@ class UsuarioRepository
         return false;
     }
 
-    public function updateUsuario(Usuario $usuario, string $meial)
+    public function updateUsuario(Usuario $usuario)
     {
         $conexao = (new DataBase())->conexao();
 

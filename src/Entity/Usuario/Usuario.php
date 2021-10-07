@@ -15,7 +15,7 @@ class Usuario
 
     public function criptografaSenha(string $senha)
     {
-        return password_hash($senha, PASSWORD_BCRYPT);
+        return $this->setPassword(password_hash($senha, PASSWORD_BCRYPT));
     }
 
     public function getNomeCompleto(): string

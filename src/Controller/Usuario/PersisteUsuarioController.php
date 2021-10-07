@@ -53,7 +53,7 @@ class PersisteUsuarioController implements Controller
             exit;
         }
 
-        $usuario = $usuarioFactory->novaEntidade($infUsuuario);
+        $usuario = $usuarioFactory->novaEntidadeComSenhaCriptografada($infUsuuario);
         $response = $usuarioRepository->insereUsuario($usuario);
 
         if($response == true){
