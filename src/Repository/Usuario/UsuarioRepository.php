@@ -81,6 +81,7 @@ class UsuarioRepository
         $password = $usuario->getPassword();
         $nomeCompleto = $usuario->getNomeCompleto();
 
+        // refatorar isso para outro metodo
         $usuarioExistente = $this->buscaUmUsuario($email);
 
         if($usuarioExistente['email'] != $email){

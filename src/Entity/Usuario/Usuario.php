@@ -8,6 +8,11 @@ class Usuario
     private string $email;
     private string $password;
 
+    public function verificaSenhaCriptografada(string $senhaString): bool
+    {
+        return password_verify($senhaString, $this->getPassword());
+    }
+
     public function getNomeCompleto(): string
     {
         return $this->nomeCompleto;
