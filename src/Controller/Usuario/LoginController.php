@@ -3,6 +3,7 @@
 namespace App\Controller\Usuario;
 
 use App\Controller\Controller;
+use App\Factory\Usuario\UsuarioFactory;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
 use App\Repository\Usuario\UsuarioRepository;
@@ -17,33 +18,39 @@ class LoginController implements Controller
     public function processaRequisicao()
     {
         $usuarioRepository = new UsuarioRepository();
+        $usuarioFactory = new UsuarioFactory();
 
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
-        $infUsuario = [
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        if($infUsuario['email'] == null && $infUsuario['password'] == null){
+        
+        if($email == null && $password == null){
             $this->defineMsg('danger', 'Preencha todos os campos!');
             header('Location: /login');
             return;
         }
 
-        $login = $usuarioRepository->login($email, $password);
+        $usuario = $usuarioRepository->buscaUmUsuario($email);
 
-        if($login !== false){
+        $infUsuario = [
+            'nome_completo' => $usuario['nome_completo'],
+            'email' => $usuario['email'],
+            'password' => $usuario['password'],
+        ];  
+
+        $usuarioLogado = $usuarioFactory->novaEntidade($infUsuario);
+
+        if(!$usuarioLogado->verificaSenhaCriptografada($password)){
+            $this->defineMsg('danger', 'Credenciais incorretas');
+            header('Location: /login');
+            return;
+        }
+
+        if($usuario !== false){
             $_SESSION['logado'] = true;
-            $_SESSION['usuario'] = $login;
+            $_SESSION['usuario'] = $usuario;
             $this->defineMsg('success', 'Logado');
             header('Location: /perfil-usuario');
             return;
         }
-
-        $this->defineMsg('danger', 'Credenciais incorretas');
-        header('Location: /login');
-        return;
     }
 }

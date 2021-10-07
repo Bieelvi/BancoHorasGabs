@@ -13,6 +13,11 @@ class Usuario
         return password_verify($senhaString, $this->getPassword());
     }
 
+    public function criptografaSenha(string $senha)
+    {
+        return password_hash($senha, PASSWORD_BCRYPT);
+    }
+
     public function getNomeCompleto(): string
     {
         return $this->nomeCompleto;

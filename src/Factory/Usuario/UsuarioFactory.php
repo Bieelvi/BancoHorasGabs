@@ -13,12 +13,7 @@ class UsuarioFactory
         return (new Usuario())
             ->setNomeCompleto($entitdade['nome_completo'])
             ->setEmail($entitdade['email'])
-            ->setPassword($this->criptografaSenha($entitdade['password']))
+            ->setPassword($entitdade['password'])
         ;
-    }
-
-    private function criptografaSenha(string $senha)
-    {
-        return password_hash($senha, PASSWORD_BCRYPT);
     }
 }

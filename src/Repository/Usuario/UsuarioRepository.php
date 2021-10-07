@@ -24,7 +24,7 @@ class UsuarioRepository
 
         if($sql->execute()) {
             $_SESSION['logado'] = true;
-            $_SESSION['usuario'] = $this->login($email, $password);
+            $_SESSION['usuario'] = $this->buscaUmUsuario($email);
             return true;
         }
 
@@ -95,7 +95,7 @@ class UsuarioRepository
         $sql->bindParam(4, $email);
 
         if($sql->execute()) {
-            $_SESSION['usuario'] = $this->login($email, $password);
+            $_SESSION['usuario'] = $this->buscaUmUsuario($email);
             return true;
         }
 
