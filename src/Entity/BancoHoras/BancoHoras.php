@@ -2,8 +2,6 @@
 
 namespace App\Entity\BancoHoras;
 
-use App\Entity\Usuario\Usuario;
-
 class BancoHoras 
 {
     private int $usuario;

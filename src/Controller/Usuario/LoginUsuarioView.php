@@ -7,7 +7,7 @@ use App\Helper\RenderHtml;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class LoginUsuario implements Controller
+class LoginUsuarioView implements Controller
 {
     use RenderHtml;
 

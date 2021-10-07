@@ -10,7 +10,7 @@ use App\Repository\BancoHoras\BancoHorasRepository;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class PersisteBancoHoras implements Controller
+class PersisteBancoHorasController implements Controller
 {
     use RenderHtml;
     use FlashMessage;

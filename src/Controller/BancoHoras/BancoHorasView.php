@@ -8,7 +8,7 @@ use App\Repository\BancoHoras\BancoHorasRepository;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class BancoHoras implements Controller 
+class BancoHorasView implements Controller 
 {
     use RenderHtml;
 

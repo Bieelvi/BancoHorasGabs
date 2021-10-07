@@ -1,23 +1,23 @@
-<?php
+<?php 
 
-namespace App\Controller\Usuario;
+namespace App\Controller\BancoHoras;
 
 use App\Controller\Controller;
 use App\Helper\RenderHtml;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class CadastrarUsuario implements Controller
+class CadastrarBancoHorasView implements Controller 
 {
     use RenderHtml;
 
     public function processaRequisicao()
     {
         echo $this->renderizaHtml(
-            'formularios/cadastro_usuario.php', 
+            'formularios/cadastrar_banco_horas.php', 
             [
-                'titulo' => 'Cadastrar Usuário - Banco Horas Gabs',
-                'tituloLogo' => 'Formulário de Cadastro'    
+                'titulo' => 'Banco Horas Gabs',
+                'tituloLogo' => 'Horas'
             ]
         );
     }

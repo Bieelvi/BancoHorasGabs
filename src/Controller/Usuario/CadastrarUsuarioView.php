@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller\Usuario;
 
@@ -7,17 +7,17 @@ use App\Helper\RenderHtml;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class PerfilUsuario implements Controller
+class CadastrarUsuarioView implements Controller
 {
     use RenderHtml;
 
     public function processaRequisicao()
     {
         echo $this->renderizaHtml(
-            'listas/perfil_usuario.php', 
+            'formularios/cadastro_usuario.php', 
             [
-                'titulo' => 'Perfil - Banco Horas Gabs',
-                'tituloLogo' => 'Perfil'
+                'titulo' => 'Cadastrar Usuário - Banco Horas Gabs',
+                'tituloLogo' => 'Formulário de Cadastro'    
             ]
         );
     }

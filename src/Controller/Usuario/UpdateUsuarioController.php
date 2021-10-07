@@ -10,7 +10,7 @@ use App\Repository\Usuario\UsuarioRepository;
 
 include_once __DIR__ . '/../../../vendor/autoload.php';
 
-class UpdateUsuario implements Controller
+class UpdateUsuarioController implements Controller
 {
     use FlashMessage;
 
