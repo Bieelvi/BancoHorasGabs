@@ -41,7 +41,7 @@ class PesquisaAnoSelecionadoView implements Controller
             'listas/listar_banco_horas.php', 
             [
                 'titulo' => 'Banco Horas Gabs',
-                'tituloLogo' => 'Teste',
+                'tituloLogo' => 'Bancho de Horas',
                 'anoSelecionado' => $_POST['anoEscolhido'],
                 'anos' => $anos,
                 'bancoHoras' => isset($horas) ? $horas : null,

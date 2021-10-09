@@ -47,7 +47,7 @@ class PersisteBancoHorasController implements Controller
 
         $bancoHoras = (new BancoHorasFactory())->novaEntidade($infBancoHoras);
 
-        if((new BancoHorasRepository())->insereBancoHoras($bancoHoras)){
+        if ((new BancoHorasRepository())->insereBancoHoras($bancoHoras)) {
             $this->defineMsg('success', 'Dia acrescentado com sucesso!');
             header('Location: /banco-horas');
             exit;
@@ -56,13 +56,13 @@ class PersisteBancoHorasController implements Controller
 
     private function verificaCampos(array $dados)
     {
-        if($dados['data'] == ''){
+        if ($dados['data'] == '') {
             $this->defineMsg('danger', 'Selecione uma data!');
             header('Location: /cadatrar-banco-horas');
             exit;
         }
 
-        if($dados['nome_empresa'] == 'Escolher'){
+        if ($dados['nome_empresa'] == 'Escolher') {
             $this->defineMsg('danger', 'Selecione uma empresa!');
             header('Location: /cadatrar-banco-horas');
             exit;
@@ -73,7 +73,7 @@ class PersisteBancoHorasController implements Controller
     {
         $horaCompleto = filter_input(INPUT_POST, $dados, FILTER_SANITIZE_STRING);
 
-        if($horaCompleto == ''){
+        if ($horaCompleto == '') {
             $this->defineMsg('danger', 'Preencha todos os campos de hora corretamente!');
             header('Location: /cadatrar-banco-horas');
             exit;
@@ -96,7 +96,7 @@ class PersisteBancoHorasController implements Controller
 
         $tempoEmSegundos = $horasDiaMinutos + $minutoDia;
 
-        if($tempoEmSegundos > $horasDiariasMinutos){
+        if ($tempoEmSegundos > $horasDiariasMinutos) {
             return $tempoEmSegundos - $horasDiariasMinutos;
         }
 
