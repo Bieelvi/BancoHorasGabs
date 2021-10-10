@@ -5,6 +5,7 @@ return [
     '/novo-usuario'             => App\Controller\Usuario\PersisteUsuarioController::class,
     '/listar-usuario'           => App\Controller\Usuario\ListarUsuarioView::class,
     '/update-usuario'           => App\Controller\Usuario\UpdateUsuarioController::class,
+    '/perfil-usuario'           => App\Controller\Usuario\PerfilUsuarioView::class,
 
     '/login'                    => App\Controller\Usuario\LoginUsuarioView::class,
     '/login-controller'         => App\Controller\Usuario\LoginController::class,
@@ -18,6 +19,5 @@ return [
     '/sujestao'                 => App\Controller\Comunicacao\SujestaoView::class,
     '/sujestao-controller'      => App\Controller\Comunicacao\SujestaoController::class,
 
-    //'/teste'                    => App\Controller\Teste::class,
-    //'/perfil-usuario'           => App\Controller\Usuario\PerfilUsuarioView::class,
+    '/teste'                    => App\Controller\Teste::class,
 ];

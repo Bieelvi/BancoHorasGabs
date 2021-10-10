@@ -10,37 +10,51 @@
     </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand"><?= $tituloLogo ?></a>
-        <div class="d-flex">
-            <?php if(!isset($_SESSION['logado'])): ?>
-                <a href="/novo">
-                    <button class="btn btn-dark" type="submit">Cadastrar</button>
-                </a>
-                <a href="/login" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Entrar</button>
-                </a>
-            <?php endif; ?>
-            <?php if(isset($_SESSION['logado'])): ?>
-                <a href="/banco-horas" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Banco de Horas</button>
-                </a>
-                <a href="/perfil-usuario" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Perfil</button>
-                </a>
-                <a href="/logout" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Sair</button>
-                </a>
-                <a href="/sujestao" class="ms-2">
-                    <button class="btn btn-dark" type="submit">Dar Sujestão</button>
-                </a>
-            <?php endif; ?>
-        </div>
-  </div>
-</nav>
+<header>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand"><?= $tituloLogo ?></a>
+            <div class="d-flex">
 
-<div class="container mt-3">
+                <div class="btn-group">
+                    <div class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <img src="https://img.icons8.com/material-sharp/24/000000/menu--v1.png"/>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton2">
+                        <?php if(!isset($_SESSION['logado'])): ?>
+                            <li>
+                                <a href="/novo" class="dropdown-item"> Cadastrar </a>
+                            </li>
+                            <li>
+                                <a href="/login" class="dropdown-item"> Entrar </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if(isset($_SESSION['logado'])): ?>
+                            <li>
+                                <a href="/banco-horas" class="dropdown-item"> Banco de Horas </a>
+                            </li>
+                            <li>
+                                <a href="/perfil-usuario" class="dropdown-item"> Perfil </a>
+                            </li>
+                            <li>
+                                <a href="/sujestao" class="dropdown-item"> Dar Sujestão </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a href="/logout" class="dropdown-item"> Sair </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</header
+
+<main>
+
+<section class="container mt-3">
     <?php if (isset($_SESSION['msg'])): ?>
         <div class="alert alert-<?= $_SESSION['tipo_msg']; ?>">
             <?= $_SESSION['msg']; ?>
@@ -50,6 +64,4 @@
             unset($_SESSION['tipo_msg']);
         endif; 
     ?>
-</div>
-
-<main>
+</section>
